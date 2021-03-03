@@ -50,6 +50,8 @@ Note that this does **not** build using your machine-wide installed version of t
 
 ## Troubleshooting build errors
 
+* The "CreateAppHost" task failed unexpectedly.
+    * https://stackoverflow.com/questions/61067765/the-createapphost-task-failed-unexpectedly-msb4018
 * Most build errors are compile errors and can be dealt with accordingly.
 * Other error may be from MSBuild tasks. You need to examine the build logs to investigate.
   * The logs are generated at `.\artifacts\log\Debug\Build.binlog`

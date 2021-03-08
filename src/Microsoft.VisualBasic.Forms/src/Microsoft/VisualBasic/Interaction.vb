@@ -1,4 +1,4 @@
-' Licensed to the .NET Foundation under one or more agreements.
+﻿' Licensed to the .NET Foundation under one or more agreements.
 ' The .NET Foundation licenses this file to you under the MIT license.
 ' See the LICENSE file in the project root for more information.
 
@@ -387,7 +387,8 @@ Namespace Microsoft.VisualBasic
             Try
                 If Title Is Nothing Then
                     If vbhost Is Nothing Then
-                        sTitle = GetTitleFromAssembly(System.Reflection.Assembly.GetCallingAssembly())
+                        Dim assembly = New StackTrace(5).GetFrame(0).GetMethod().ReflectedType.Assembly
+                        sTitle = GetTitleFromAssembly(assembly)
                     Else
                         sTitle = vbhost.GetWindowTitle()
                     End If

@@ -34,10 +34,16 @@ namespace VisualBasicRuntimeTest
                         Interaction_InputBox(useVbHost: true);
                         break;
                     case "Interaction.MsgBox":
-                        Interaction_MsgBox(useVbHost: false);
+                        Interaction_MsgBox(useVbHost: false,Title:"Title");
                         break;
                     case "Interaction.MsgBox_VbHost":
-                        Interaction_MsgBox(useVbHost: true);
+                        Interaction_MsgBox(useVbHost: true, Title: "Title");
+                        break;
+                    case "Interaction.MsgBox_No_Title":
+                        Interaction_MsgBox(useVbHost: false, Title: null);
+                        break;
+                    case "Interaction.MsgBox_VbHost_No_Title":
+                        Interaction_MsgBox(useVbHost: true, Title: null);
                         break;
                     case "WindowsFormsApplicationBase.Run":
                         WindowsFormsApplicationBase_Run(isSingleInstance: false, isFirstInstance: true);
@@ -71,11 +77,18 @@ namespace VisualBasicRuntimeTest
             Interaction.InputBox(Prompt: "Prompt", Title: "Title");
         }
 
-        private static void Interaction_MsgBox(bool useVbHost)
+        private static void Interaction_MsgBox(bool useVbHost, string Title)
         {
             VbHost host = useVbHost ? new VbHost() : null;
             HostServices.VBHost = host;
-            Interaction.MsgBox(Prompt: "Message", Buttons: MsgBoxStyle.OkCancel, Title: "Title");
+            if (!String.IsNullOrWhiteSpace(Title))
+            {
+                Interaction.MsgBox(Prompt: "Message", Buttons: MsgBoxStyle.OkCancel, Title: Title);
+            }
+            else
+            {
+                Interaction.MsgBox(Prompt: "Message", Buttons: MsgBoxStyle.OkCancel);
+            }
         }
 
         private static void WindowsFormsApplicationBase_Run(bool isSingleInstance, bool isFirstInstance)
